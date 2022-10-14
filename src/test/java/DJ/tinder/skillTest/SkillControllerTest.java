@@ -1,7 +1,9 @@
 package DJ.tinder.skillTest;
 
 import DJ.tinder.readService.model.achievement.dto.AchievementReadDto;
+import DJ.tinder.readService.model.skill.dto.SkillReadDto;
 import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
+import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,14 +32,14 @@ public class SkillControllerTest {
     @Test
     void shouldThatCreateAndGetNewSkillCorrect() {
 
-        var achievement = create(baseUri, AchievementReadDto.class, new AchievementWriteDto()
+        var achievement = create(baseUri, SkillReadDto.class, new SkillWriteDto()
                 .setName("Test"));
 
         var location = baseUri + "/" + achievement.getId();
 
-        var actual = read(location, AchievementReadDto.class);
+        var actual = read(location, SkillReadDto.class);
 
-        var expected = new AchievementReadDto()
+        var expected = new SkillReadDto()
                 .setId(actual.getId())
                 .setName("Test");
 
@@ -47,15 +49,15 @@ public class SkillControllerTest {
     @Test
     void shouldThatCreateAndUpdateNewSkillCorrect() {
 
-        var skill = create(baseUri, AchievementReadDto.class, new AchievementWriteDto()
+        var skill = create(baseUri, SkillReadDto.class, new SkillWriteDto()
                 .setName("Test"));
 
         var locationCreatedEvent = baseUri + "/" + skill.getId();
 
-        var actual = update(locationCreatedEvent, AchievementReadDto.class, new AchievementWriteDto()
+        var actual = update(locationCreatedEvent, SkillReadDto.class, new SkillWriteDto()
                 .setName("NewTestName"));
 
-        var excepted = new AchievementReadDto()
+        var excepted = new SkillReadDto()
                 .setId(skill.getId())
                 .setName("NewTestName");
 

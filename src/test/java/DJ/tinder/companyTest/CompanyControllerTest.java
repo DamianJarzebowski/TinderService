@@ -27,6 +27,7 @@ public class CompanyControllerTest {
         baseUri = URI.create(testRestTemplate.getRootUri()) + BASE_URL;
     }
 
+    /*
     @Test
     void shouldThatCreateAndGetNewCompanyCorrect() {
 
@@ -53,7 +54,8 @@ public class CompanyControllerTest {
         var locationCreatedEvent = baseUri + "/" + company.getId();
 
         var actual = update(locationCreatedEvent, CompanyReadDto.class, new AchievementWriteDto()
-                .setName("NewTestName"));;
+                .setName("NewTestName"));
+        ;
 
         var excepted = new CompanyReadDto()
                 .setId(company.getId())
@@ -62,5 +64,5 @@ public class CompanyControllerTest {
         Assertions.assertThat(actual).isEqualTo(excepted);
     }
 
-
+     */
 }

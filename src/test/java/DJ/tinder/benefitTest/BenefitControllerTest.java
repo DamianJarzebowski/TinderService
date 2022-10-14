@@ -2,6 +2,7 @@ package DJ.tinder.benefitTest;
 
 import DJ.tinder.readService.model.benefit.dto.BenefitReadDto;
 import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
+import DJ.tinder.writeService.model.benefit.dto.BenefitWriteDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class BenefitControllerTest {
     @Test
     void shouldThatCreateAndGetNewBenefitCorrect() {
 
-        var benefit = create(baseUri, BenefitReadDto.class, new AchievementWriteDto()
+        var benefit = create(baseUri, BenefitReadDto.class, new BenefitWriteDto()
                 .setName("Test"));
 
         var location = baseUri + "/" + benefit.getId();
@@ -47,12 +48,12 @@ public class BenefitControllerTest {
     @Test
     void shouldThatCreateAndUpdateNewBenefitCorrect() {
 
-        var benefit = create(baseUri, BenefitReadDto.class, new AchievementWriteDto()
+        var benefit = create(baseUri, BenefitReadDto.class, new BenefitWriteDto()
                 .setName("Test"));
 
         var locationCreatedEvent = baseUri + "/" + benefit.getId();
 
-        var actual = update(locationCreatedEvent, BenefitReadDto.class, new AchievementWriteDto()
+        var actual = update(locationCreatedEvent, BenefitReadDto.class, new BenefitWriteDto()
                 .setName("NewTestName"));;
 
         var excepted = new BenefitReadDto()
