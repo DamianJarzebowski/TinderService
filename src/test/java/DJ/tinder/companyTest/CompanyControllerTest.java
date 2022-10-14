@@ -1,6 +1,6 @@
-package DJ.tinder.benefitTest;
+package DJ.tinder.companyTest;
 
-import DJ.tinder.readService.model.benefit.dto.BenefitReadDto;
+import DJ.tinder.readService.model.company.dto.CompanyReadDto;
 import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +14,9 @@ import java.net.URI;
 import static DJ.tinder.testMethods.CreateReadUpdateDelete.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BenefitControllerTest {
+public class CompanyControllerTest {
 
-    public static final String BASE_URL = "/benefits";
+    public static final String BASE_URL = "/companies";
     String baseUri;
 
     @Autowired
@@ -28,16 +28,16 @@ public class BenefitControllerTest {
     }
 
     @Test
-    void shouldThatCreateAndGetNewBenefitCorrect() {
+    void shouldThatCreateAndGetNewCompanyCorrect() {
 
-        var benefit = create(baseUri, BenefitReadDto.class, new AchievementWriteDto()
+        var company = create(baseUri, CompanyReadDto.class, new AchievementWriteDto()
                 .setName("Test"));
 
-        var location = baseUri + "/" + benefit.getId();
+        var location = baseUri + "/" + company.getId();
 
-        var actual = read(location, BenefitReadDto.class);
+        var actual = read(location, CompanyReadDto.class);
 
-        var expected = new BenefitReadDto()
+        var expected = new CompanyReadDto()
                 .setId(actual.getId())
                 .setName("Test");
 
@@ -45,20 +45,22 @@ public class BenefitControllerTest {
     }
 
     @Test
-    void shouldThatCreateAndUpdateNewBenefitCorrect() {
+    void shouldThatCreateAndUpdateNewCompanyCorrect() {
 
-        var benefit = create(baseUri, BenefitReadDto.class, new AchievementWriteDto()
+        var company = create(baseUri, CompanyReadDto.class, new AchievementWriteDto()
                 .setName("Test"));
 
-        var locationCreatedEvent = baseUri + "/" + benefit.getId();
+        var locationCreatedEvent = baseUri + "/" + company.getId();
 
-        var actual = update(locationCreatedEvent, BenefitReadDto.class, new AchievementWriteDto()
+        var actual = update(locationCreatedEvent, CompanyReadDto.class, new AchievementWriteDto()
                 .setName("NewTestName"));;
 
-        var excepted = new BenefitReadDto()
-                .setId(benefit.getId())
+        var excepted = new CompanyReadDto()
+                .setId(company.getId())
                 .setName("NewTestName");
 
         Assertions.assertThat(actual).isEqualTo(excepted);
     }
+
+
 }

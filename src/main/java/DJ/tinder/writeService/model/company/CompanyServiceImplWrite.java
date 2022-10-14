@@ -5,6 +5,7 @@ import DJ.tinder.exception.badRequest.BadRequestException;
 import DJ.tinder.exception.notFound.NotFoundException;
 import DJ.tinder.readService.model.company.Company;
 import DJ.tinder.readService.model.company.CompanyRepository;
+import DJ.tinder.writeService.model.company.dto.CompanyWriteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,33 +20,19 @@ public class CompanyServiceImplWrite implements CompanyService{
     private final CompanyRepository companyRepository;
 
     @Override
-    public List<Company> findAll() {
-        log.info("Downloading all companies");
-        return companyRepository.findAll();
+    public Company create(CompanyWriteDto dto) {
+        log.info(String.format("Creating company %s", dto.toString()));
+        return companyRepository.save(Company.builder()
+                .name(dto.getName())
+                .build());
     }
 
     @Override
-    public Company findById(Long id) {
-        log.info(String.format("Downloading company id: %d", id));
-        return companyRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error(String.format("Company id: %d does not exists", id));
-                    return new NotFoundException(ErrorMessage.NOT_FOUND);
-                });
-    }
-
-    @Override
-    public Company create(Company company) {
-        log.info(String.format("Creating company %s", company.toString()));
-        return companyRepository.save(company);
-    }
-
-    @Override
-    public Company update(Long id, String name) {
-        validateName(name);
+    public Company update(Long id, CompanyWriteDto dto) {
+        validateName(dto.getName());
         return companyRepository.findById(id)
                 .map(companyFromDb -> {
-                    companyFromDb.setName(name);
+                    companyFromDb.setName(dto.getName());
                     return companyRepository.save(companyFromDb);
                 }).orElseThrow(() -> {
                     log.error(String.format("Company id: %d does not exists", id));

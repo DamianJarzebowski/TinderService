@@ -5,7 +5,6 @@ import DJ.tinder.readService.model.achievement.dto.AchievementReadDto;
 import DJ.tinder.readService.model.achievement.dto.AchievementReadMapper;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -20,23 +20,6 @@ public class AchievementServiceImplWrite implements AchievementService {
     private final AchievementRepository achievementRepository;
 
     @Override
-    public List<Achievement> findAll() {
-        log.info("Downloading all achievements");
-        return achievementRepository.findAll();
-    }
-
-    @Override
-    public Achievement findById(Long id) {
-        log.info(String.format("Downloading achievement by id %d", id));
-        return achievementRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error(String.format("Achievement id: %d does not exists", id));
-                    return new NotFoundException(ErrorMessage.NOT_FOUND);
-                });
-
-    }
-
-    @Override
     public Achievement create(AchievementWriteDto dto) {
         log.info(String.format("Creating new achievement: %s", dto));
         validateName(dto.getName());

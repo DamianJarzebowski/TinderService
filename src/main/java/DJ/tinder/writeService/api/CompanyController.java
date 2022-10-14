@@ -20,16 +20,14 @@ public class CompanyController {
     private final CompanyWriteMapper companyWriteMapper;
 
     @PostMapping
-    public CompanyReadDto create(@RequestBody CompanyWriteDto companyWriteDto) {
+    public CompanyReadDto create(@RequestBody CompanyWriteDto dto) {
         return companyReadMapper.toDto(
-                companyService.create(
-                        companyWriteMapper.toEntity(companyWriteDto)
-                ));
+                companyService.create(dto));
     }
 
     @PutMapping("/{id}")
-    public CompanyReadDto update(@PathVariable Long id, @RequestBody String name) {
+    public CompanyReadDto update(@PathVariable Long id, @RequestBody CompanyWriteDto dto) {
         return companyReadMapper.toDto(
-                companyService.update(id, name));
+                companyService.update(id, dto));
     }
 }

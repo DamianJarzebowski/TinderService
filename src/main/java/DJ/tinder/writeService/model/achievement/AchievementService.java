@@ -7,10 +7,6 @@ import java.util.List;
 
 public interface AchievementService {
 
-    List<Achievement> findAll();
-
-    Achievement findById(Long id);
-
     Achievement create(AchievementWriteDto dto);
 
     Achievement update(Long id, AchievementWriteDto dto);

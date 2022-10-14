@@ -20,22 +20,6 @@ public class BenefitServiceImplWrite implements BenefitService {
     private final BenefitRepository benefitRepository;
 
     @Override
-    public List<Benefit> findAll() {
-        log.info("Downloading all benfits");
-        return benefitRepository.findAll();
-    }
-
-    @Override
-    public Benefit findById(Long id) {
-        log.info(String.format("Downloading benefit id: %d", id));
-        return benefitRepository.findById(id)
-                .orElseThrow(() -> {
-            log.error(String.format("Benefit id: %d does not exists", id));
-            return new NotFoundException(ErrorMessage.NOT_FOUND);
-        });
-    }
-
-    @Override
     public Benefit create(BenefitWriteDto dto) {
         log.info(String.format("Creating benefit: %s", dto));
         validateName(dto.getName());
