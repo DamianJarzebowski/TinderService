@@ -5,6 +5,7 @@ import DJ.tinder.readService.model.benefit.dto.BenefitReadMapper;
 import DJ.tinder.writeService.model.benefit.BenefitService;
 import DJ.tinder.writeService.model.benefit.dto.BenefitWriteDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -17,6 +18,7 @@ public class BenefitController {
     private final BenefitReadMapper benefitReadMapper;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public BenefitReadDto create(@RequestBody BenefitWriteDto dto) {
         return benefitReadMapper.toDto(
                 benefitService.create(dto));

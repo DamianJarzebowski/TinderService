@@ -20,7 +20,6 @@ public class AchievementReadController {
     private final AchievementReadMapper achievementReadMapper;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     public List<AchievementReadDto> findAll() {
         return achievementReadMapper.toDto(
                 achievementService.findAll());

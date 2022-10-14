@@ -6,6 +6,7 @@ import DJ.tinder.exception.notFound.NotFoundException;
 
 import DJ.tinder.readService.model.skill.Skill;
 import DJ.tinder.readService.model.skill.SkillRepository;
+import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,30 +19,19 @@ public class SkillServiceImplWrite implements SkillService {
     private final SkillRepository skillRepository;
 
     @Override
-    public List<Skill> findAll() {
-        return skillRepository.findAll();
-    }
-
-    @Override
-    public Skill findById(Long id) {
-        return skillRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
-    }
-
-    @Override
-    public Skill create(String name) {
-        validateName(name);
+    public Skill create(SkillWriteDto dto) {
+        validateName(dto.getName());
         return skillRepository.save(Skill.builder()
-                .name(name)
+                .name(dto.getName())
                 .build());
     }
 
     @Override
-    public Skill update(Long id, String name) {
-        validateName(name);
+    public Skill update(Long id, SkillWriteDto dto) {
+        validateName(dto.getName());
         return skillRepository.findById(id)
                 .map(skillFromDb -> {
-                    skillFromDb.setName(name);
+                    skillFromDb.setName(dto.getName());
                     return skillRepository.save(skillFromDb);
                 }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
     }
