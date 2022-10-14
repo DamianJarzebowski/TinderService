@@ -1,0 +1,18 @@
+databaseChangeLog:
+
+  -  changeSet:
+       id: 0007
+       author: Damian Jarzębowski
+       changes:
+
+         -  addForeignKeyConstraint:
+
+              constraintName: FK_projects_benefits
+
+              baseColumnNames:  category_id
+              baseTableName:  event
+
+              referencedColumnNames:  id
+              referencedTableName:  category
+
+              validate:  true

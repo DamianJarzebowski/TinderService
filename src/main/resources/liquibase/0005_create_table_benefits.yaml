@@ -1,0 +1,26 @@
+databaseChangeLog:
+
+  -  changeSet:
+       id: 0005
+       author: Damian Jarzębowski
+       changes:
+
+         - createTable:
+             tableName: benefits
+
+             columns:
+
+               - column:
+                   name: id
+                   type: BIGINT
+                   autoIncrement: true
+
+                   constraints:
+                     primaryKey: true
+                     nullable: false
+
+               - column:
+                   name: name
+                   type: varchar(30)
+                   constraints:
+                     nullable: false
