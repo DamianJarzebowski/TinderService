@@ -1,4 +1,4 @@
-package DJ.tinder.achievementTest;
+package DJ.tinder.skillTest;
 
 import DJ.tinder.readService.model.achievement.dto.AchievementReadDto;
 import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
@@ -13,11 +13,10 @@ import java.net.URI;
 
 import static DJ.tinder.testMethods.CreateReadUpdateDelete.*;
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AchievementControllerTest {
+public class SkillControllerTest {
 
-    public static final String BASE_URL = "/achievements";
+    public static final String BASE_URL = "/skills";
     String baseUri;
 
     @Autowired
@@ -29,7 +28,7 @@ public class AchievementControllerTest {
     }
 
     @Test
-    void shouldThatCreateAndGetNewAchievementCorrect() {
+    void shouldThatCreateAndGetNewSkillCorrect() {
 
         var achievement = create(baseUri, AchievementReadDto.class, new AchievementWriteDto()
                 .setName("Test"));
@@ -46,22 +45,20 @@ public class AchievementControllerTest {
     }
 
     @Test
-    void shouldThatCreateAndUpdateNewAchievementCorrect() {
+    void shouldThatCreateAndUpdateNewSkillCorrect() {
 
-        var achievement = create(baseUri, AchievementReadDto.class, new AchievementWriteDto()
+        var skill = create(baseUri, AchievementReadDto.class, new AchievementWriteDto()
                 .setName("Test"));
 
-        var locationCreatedEvent = baseUri + "/" + achievement.getId();
+        var locationCreatedEvent = baseUri + "/" + skill.getId();
 
         var actual = update(locationCreatedEvent, AchievementReadDto.class, new AchievementWriteDto()
                 .setName("NewTestName"));
 
         var excepted = new AchievementReadDto()
-                .setId(achievement.getId())
+                .setId(skill.getId())
                 .setName("NewTestName");
 
         Assertions.assertThat(actual).isEqualTo(excepted);
     }
 }
-
-

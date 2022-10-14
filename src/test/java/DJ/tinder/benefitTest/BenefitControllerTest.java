@@ -19,7 +19,7 @@ import static DJ.tinder.testMethods.CreateReadUpdateDelete.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BenefitControllerTest {
 
-    public static final String BASE_URL = "/achievements";
+    public static final String BASE_URL = "/benefits";
     String baseUri;
 
     @Autowired
@@ -33,30 +33,16 @@ public class BenefitControllerTest {
     @Test
     void shouldThatCreateAndGetNewBenefitCorrect() {
 
-        // Create new benefit
-        var benefit = RestAssured
-                .with()
-                .contentType(ContentType.JSON)
-                .body(new AchievementReadDto()
-                        .setName("TestBenefit"))
-                .when()
-                .post(baseUri)
-                .then()
-                .statusCode(HttpStatus.SC_CREATED)
-                .extract()
-                .as(AchievementReadDto.class);
+        var benefit = create(baseUri, AchievementReadDto.class, new AchievementWriteDto()
+                .setName("Test"));
 
-        // Get created benefit
-        var actual = RestAssured
-                .given()
-                .headers("Content-Type", ContentType.JSON)
-                .get(baseUri + "/" + benefit.getId())
-                .as(AchievementReadDto.class);
+        var location = baseUri + "/" + benefit.getId();
 
-        // What is expected
+        var actual = read(location, AchievementReadDto.class);
+
         var expected = new AchievementReadDto()
                 .setId(actual.getId())
-                .setName("TestBenefit");
+                .setName("Test");
 
         Assertions.assertThat(actual).isEqualTo(expected);
     }
@@ -64,19 +50,14 @@ public class BenefitControllerTest {
     @Test
     void shouldThatCreateAndUpdateNewBenefitCorrect() {
 
-        // Create new benefit
         var benefit = create(baseUri, AchievementReadDto.class, new AchievementWriteDto()
                 .setName("Test"));
 
-        // Update created benefit
         var locationCreatedEvent = baseUri + "/" + benefit.getId();
-        var updatedAchievement = update(locationCreatedEvent, AchievementReadDto.class, new AchievementWriteDto()
-                .setName("NewTestName"));
 
-        // Set updated benefit as actual for assert
-        var actual = read(locationCreatedEvent, AchievementReadDto.class);
+        var actual = update(locationCreatedEvent, AchievementReadDto.class, new AchievementWriteDto()
+                .setName("NewTestName"));;
 
-        // Set date from updated as excepted
         var excepted = new AchievementReadDto()
                 .setId(benefit.getId())
                 .setName("NewTestName");
