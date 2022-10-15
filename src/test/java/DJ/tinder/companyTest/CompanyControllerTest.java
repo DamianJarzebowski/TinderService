@@ -81,26 +81,77 @@ public class CompanyControllerTest {
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 
-    /*
     @Test
     void shouldThatCreateAndUpdateNewCompanyCorrect() {
 
-        var company = create(baseUri, CompanyReadDto.class, new AchievementWriteDto()
-                .setName("Test"));
+        // Date to create
+
+        var listSkills = new ArrayList<SkillWriteDto>();
+        listSkills.add(new SkillWriteDto().setName("Java"));
+        listSkills.add(new SkillWriteDto().setName("GIT"));
+
+        var listBenefits = new ArrayList<BenefitWriteDto>();
+        listBenefits.add(new BenefitWriteDto().setName("Coffee"));
+        listBenefits.add(new BenefitWriteDto().setName("MultiSport Card"));
+
+        var listProjects = new ArrayList<ProjectToCompanyWriteDto>();
+        listProjects.add(new ProjectToCompanyWriteDto()
+                .setName("ProjectOne")
+                .setDescription("Sth")
+                .setSkills(listSkills)
+                .setBenefits(listBenefits)
+        );
+
+        var companyDate = new CompanyWriteDto()
+                .setName("Company")
+                .setProjects(listProjects);
+
+        // Date to Update
+
+        var listSkillsToUpdate = new ArrayList<SkillWriteDto>();
+        listSkillsToUpdate.add(new SkillWriteDto().setName("Python"));
+        listSkillsToUpdate.add(new SkillWriteDto().setName("SQL"));
+
+        var listBenefitsToUpdate = new ArrayList<BenefitWriteDto>();
+        listBenefitsToUpdate.add(new BenefitWriteDto().setName("Fruits"));
+        listBenefitsToUpdate.add(new BenefitWriteDto().setName("Bowling"));
+
+        var listProjectsToUpgrade = new ArrayList<ProjectToCompanyWriteDto>();
+        listProjects.add(new ProjectToCompanyWriteDto()
+                .setName("ProjectOneUpdate")
+                .setDescription("SthUpdate")
+                .setSkills(listSkillsToUpdate)
+                .setBenefits(listBenefitsToUpdate)
+        );
+
+        var companyDateToUpgrade = new CompanyWriteDto()
+                .setName("CompanyNameUpgraded")
+                .setProjects(listProjectsToUpgrade);
+
+        // Date to excepted
+
+        var listProjectsToExcepted = new ArrayList<ProjectReadToCompanyDto>();
+        listProjects.add(new ProjectToCompanyWriteDto()
+                .setName("ProjectOneUpdate")
+                .setDescription("SthUpdate")
+                .setSkills(listSkillsToUpdate)
+                .setBenefits(listBenefitsToUpdate)
+        );
+
+        // Main logic testing
+
+        var company = create(baseUri, CompanyReadDto.class, companyDate);
 
         var locationCreatedEvent = baseUri + "/" + company.getId();
 
-        var actual = update(locationCreatedEvent, CompanyReadDto.class, new AchievementWriteDto()
-                .setName("NewTestName"));
-        ;
+        var actual = update(locationCreatedEvent, CompanyReadDto.class, companyDateToUpgrade);
 
         var excepted = new CompanyReadDto()
-                .setId(company.getId())
-                .setName("NewTestName");
+                .setId(actual.getId())
+                .setName("CompanyNameUpgraded")
+                .setProjects(listProjectsToExcepted);
 
         Assertions.assertThat(actual).isEqualTo(excepted);
     }
-
-     */
 
 }
