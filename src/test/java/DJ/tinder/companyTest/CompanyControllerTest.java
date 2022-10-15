@@ -43,7 +43,7 @@ public class CompanyControllerTest {
         listBenefits.add(new BenefitWriteDto().setName("Coffee"));
         listBenefits.add(new BenefitWriteDto().setName("MultiSport Card"));
 
-        var listProjects = new ArrayList<ProjectToCompanyWriteDto>();
+        var listProjects  = new ArrayList<ProjectToCompanyWriteDto>();
         listProjects.add(new ProjectToCompanyWriteDto()
                 .setName("ProjectOne")
                 .setDescription("Sth")
@@ -51,7 +51,7 @@ public class CompanyControllerTest {
                 .setBenefits(listBenefits)
         );
 
-        var listProjects2 = new ArrayList<ProjectReadToCompanyDto>();
+        var listProjectsToExpected = new ArrayList<ProjectReadToCompanyDto>();
         listProjects.add(new ProjectToCompanyWriteDto()
                 .setName("ProjectOne")
                 .setDescription("Sth")
@@ -72,7 +72,7 @@ public class CompanyControllerTest {
         var expected = new CompanyReadDto()
                 .setId(actual.getId())
                 .setName("Company")
-                .setProjects(listProjects2);
+                .setProjects(listProjectsToExpected);
 
         Assertions.assertThat(actual).isEqualTo(expected);
     }
