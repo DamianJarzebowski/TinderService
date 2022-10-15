@@ -1,13 +1,10 @@
 package DJ.tinder.companyTest;
 
 import DJ.tinder.readService.model.company.dto.CompanyReadDto;
-import DJ.tinder.readService.model.project.Project;
 import DJ.tinder.readService.model.project.dto.ProjectReadToCompanyDto;
-import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
 import DJ.tinder.writeService.model.benefit.dto.BenefitWriteDto;
 import DJ.tinder.writeService.model.company.dto.CompanyWriteDto;
 import DJ.tinder.writeService.model.project.dto.ProjectToCompanyWriteDto;
-import DJ.tinder.writeService.model.project.dto.ProjectWriteDto;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +15,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
 
 import static DJ.tinder.testMethods.CreateReadUpdateDelete.*;
 
