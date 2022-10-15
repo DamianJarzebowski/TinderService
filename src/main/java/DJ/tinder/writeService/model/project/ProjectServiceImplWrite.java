@@ -26,28 +26,6 @@ public class ProjectServiceImplWrite implements ProjectService {
     }
 
     @Override
-    public Project findById(Long id) {
-        return projectRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
-    }
-
-    @Override
-    public Project findRandom(Long developerId) {
-        log.info(String.format("Downloading random project by devId: %d", developerId));
-        List<Project> projects = projectRepository.getRandomProjects(developerId);
-        if (projects.isEmpty()) {
-            throw new NotFoundException(ErrorMessage.NOT_FOUND);
-        } else {
-            return projects.get(getRandomId(projects.size()-1));
-        }
-    }
-
-    @Override
-    public List<Project> findAll() {
-        return projectRepository.findAll();
-    }
-
-    @Override
     public Project updateBasicInformation(Long id, Project project) {
         return projectRepository.findById(id)
                 .map(projectFromDb -> {
@@ -73,9 +51,5 @@ public class ProjectServiceImplWrite implements ProjectService {
                     projectFromDb.setBenefits(benefits);
                     return projectRepository.save(projectFromDb);
                 }).orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
-    }
-
-    private int getRandomId(int max) {
-        return new Random().nextInt(max);
     }
 }

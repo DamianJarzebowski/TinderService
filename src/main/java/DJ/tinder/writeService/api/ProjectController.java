@@ -35,21 +35,21 @@ public class ProjectController {
     }
 
     @PutMapping("/{id}/general")
-    public ProjectReadDto updateBasicInformation(@PathVariable Long id, @RequestBody ProjectWriteDto projectWriteDto) {
+    public ProjectReadDto updateBasicInformation(@PathVariable Long id, @RequestBody ProjectWriteDto dto) {
         return projectReadMapper.toDto(
-                projectService.updateBasicInformation(id, projectWriteMapper.toEntity(projectWriteDto)));
+                projectService.updateBasicInformation(id, projectWriteMapper.toEntity(dto)));
     }
 
     @PutMapping("/{id}/skills")
-    public ProjectReadDto updateSkills(@PathVariable Long id, @RequestBody List<SkillWriteDto> skillWriteDtoList) {
+    public ProjectReadDto updateSkills(@PathVariable Long id, @RequestBody List<SkillWriteDto> dtoList) {
         return projectReadMapper.toDto(
-                projectService.updateSkills(id, skillWriteMapper.toEntity(skillWriteDtoList)));
+                projectService.updateSkills(id, skillWriteMapper.toEntity(dtoList)));
     }
 
     @PutMapping("/{id}/benefits")
-    public ProjectReadDto updateBenefits(@PathVariable Long id, @RequestBody List<BenefitWriteDto> benefitWriteDtoList) {
+    public ProjectReadDto updateBenefits(@PathVariable Long id, @RequestBody List<BenefitWriteDto> dtoList) {
         return projectReadMapper.toDto(
-                projectService.updateBenefits(id, benefitWriteMapper.toEntity(benefitWriteDtoList)));
+                projectService.updateBenefits(id, benefitWriteMapper.toEntity(dtoList)));
     }
 
 }

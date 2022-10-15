@@ -10,12 +10,6 @@ public interface ProjectService {
 
     Project create(Project project);
 
-    Project findById(Long id);
-
-    Project findRandom(Long developerId);
-
-    List<Project> findAll();
-
     Project updateBasicInformation(Long id, Project project);
 
     Project updateSkills(Long id, List<Skill> skills);
