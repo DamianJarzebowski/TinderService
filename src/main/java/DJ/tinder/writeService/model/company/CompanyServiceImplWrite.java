@@ -20,11 +20,9 @@ public class CompanyServiceImplWrite implements CompanyService{
     private final CompanyRepository companyRepository;
 
     @Override
-    public Company create(CompanyWriteDto dto) {
-        log.info(String.format("Creating company %s", dto.toString()));
-        return companyRepository.save(Company.builder()
-                .name(dto.getName())
-                .build());
+    public Company create(Company company) {
+        log.info(String.format("Creating company %s", company.toString()));
+        return companyRepository.save(company);
     }
 
     @Override

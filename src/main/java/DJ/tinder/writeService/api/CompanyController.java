@@ -7,6 +7,7 @@ import DJ.tinder.writeService.model.company.dto.CompanyWriteDto;
 
 import DJ.tinder.writeService.model.company.dto.CompanyWriteMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -20,9 +21,10 @@ public class CompanyController {
     private final CompanyWriteMapper companyWriteMapper;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public CompanyReadDto create(@RequestBody CompanyWriteDto dto) {
         return companyReadMapper.toDto(
-                companyService.create(dto));
+                companyService.create(companyWriteMapper.toEntity(dto)));
     }
 
     @PutMapping("/{id}")
