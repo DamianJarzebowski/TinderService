@@ -6,7 +6,6 @@ import DJ.tinder.writeService.model.skill.dto.SkillWriteMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

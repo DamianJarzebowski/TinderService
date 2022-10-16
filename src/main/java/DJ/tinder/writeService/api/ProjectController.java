@@ -11,6 +11,7 @@ import DJ.tinder.writeService.model.project.dto.ProjectWriteMapper;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ProjectController {
     private final SkillWriteMapper skillWriteMapper;
     private final BenefitWriteMapper benefitWriteMapper;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ProjectReadDto create(@RequestBody ProjectWriteDto projectWriteDto) {
         return projectReadMapper.toDto(
