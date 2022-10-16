@@ -140,7 +140,7 @@ public class CompanyControllerTest {
 
         var locationCreatedEvent = baseUri + "/" + company.getId();
 
-        var actual = update(locationCreatedEvent, CompanyReadDto.class, companyDateToUpgrade);
+        var actual = updatePut(locationCreatedEvent, CompanyReadDto.class, companyDateToUpgrade);
 
         var excepted = new CompanyReadDto()
                 .setId(actual.getId())

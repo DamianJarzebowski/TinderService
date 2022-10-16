@@ -53,7 +53,7 @@ public class AchievementControllerTest {
 
         var locationCreatedEvent = baseUri + "/" + achievement.getId();
 
-        var actual = update(locationCreatedEvent, AchievementReadDto.class, new AchievementWriteDto()
+        var actual = updatePut(locationCreatedEvent, AchievementReadDto.class, new AchievementWriteDto()
                 .setName("NewTestName"));
 
         var excepted = new AchievementReadDto()

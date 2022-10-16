@@ -4,11 +4,9 @@ import DJ.tinder.readService.model.benefit.dto.BenefitReadDto;
 import DJ.tinder.readService.model.company.dto.CompanyReadDto;
 import DJ.tinder.readService.model.company.dto.CompanyReadToProjectDto;
 import DJ.tinder.readService.model.project.dto.ProjectReadDto;
-import DJ.tinder.readService.model.project.dto.ProjectReadToCompanyDto;
 import DJ.tinder.readService.model.skill.dto.SkillReadDto;
 import DJ.tinder.writeService.model.benefit.dto.BenefitWriteDto;
 import DJ.tinder.writeService.model.company.dto.CompanyWriteDto;
-import DJ.tinder.writeService.model.project.dto.ProjectToCompanyWriteDto;
 import DJ.tinder.writeService.model.project.dto.ProjectWriteDto;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import org.assertj.core.api.Assertions;
@@ -113,9 +111,201 @@ public class ProjectControllerTest {
     }
 
     @Test
-    void shouldThatCreateAndUpdateNewProjectCorrect() {
+    void shouldThatCreateAndUpdateNewProjectCorrectBasicInformation() {
 
+        // Create a company to assign the project
+
+        var company = create(companyUri, CompanyReadDto.class, new CompanyWriteDto()
+                .setName("Company")
+                .setProjects(new ArrayList<>()));
+
+        // Date for create project
+
+        var listSkills = new ArrayList<SkillWriteDto>();
+        listSkills.add(new SkillWriteDto().setName("Java"));
+        listSkills.add(new SkillWriteDto().setName("GIT"));
+
+        var listBenefits = new ArrayList<BenefitWriteDto>();
+        listBenefits.add(new BenefitWriteDto().setName("Coffee"));
+        listBenefits.add(new BenefitWriteDto().setName("MultiSport Card"));
+
+        var projectDate = new ProjectWriteDto()
+                .setName("ProjectOne")
+                .setDescription("Sth")
+                .setSkills(listSkills)
+                .setBenefits(listBenefits)
+                .setCompany(new CompanyReadToProjectDto()
+                        .setId(company.getId())
+                        .setName("Company"));
+
+        // Create project
+
+        var project = create(projectUri, ProjectReadDto.class, projectDate);
+
+        // Build project location
+
+        var location = projectUri + "/" + project.getId();
+
+        // Date for update project
+
+        var projectDataToUpgrade = new ProjectWriteDto()
+                .setName("ProjectOneUpgrade")
+                .setDescription("SthUpgrade");
+
+        // Update basic information in project
+
+        var actual = updatePatch(location, ProjectReadDto.class, projectDataToUpgrade);
+
+        // Excepted data
+
+        var excepted = new ProjectReadDto()
+                .setId(actual.getId())
+                .setName("ProjectOneUpgrade")
+                .setDescription("SthUpgrade")
+                .setSkills(actual.getSkills())
+                .setBenefits(actual.getBenefits())
+                .setCompany(actual.getCompany());
+
+        Assertions.assertThat(actual).isEqualTo(excepted);
     }
 
+    @Test
+    void shouldThatCreateAndUpdateBenefitsNewProjectCorrect() {
 
+        // Create a company to assign the project
+
+        var company = create(companyUri, CompanyReadDto.class, new CompanyWriteDto()
+                .setName("Company")
+                .setProjects(new ArrayList<>()));
+
+        // Date for create project
+
+        var listSkills = new ArrayList<SkillWriteDto>();
+        listSkills.add(new SkillWriteDto().setName("Java"));
+        listSkills.add(new SkillWriteDto().setName("GIT"));
+
+        var listBenefits = new ArrayList<BenefitWriteDto>();
+        listBenefits.add(new BenefitWriteDto().setName("Coffee"));
+        listBenefits.add(new BenefitWriteDto().setName("MultiSport Card"));
+
+        var projectDate = new ProjectWriteDto()
+                .setName("ProjectOne")
+                .setDescription("Sth")
+                .setSkills(listSkills)
+                .setBenefits(listBenefits)
+                .setCompany(new CompanyReadToProjectDto()
+                        .setId(company.getId())
+                        .setName("Company"));
+
+        // Create project
+
+        var project = create(projectUri, ProjectReadDto.class, projectDate);
+
+        // Build project location
+
+        var location = projectUri + "/" + project.getId();
+
+        // Date for update project
+
+        var listBenefitsToUpdate = new ArrayList<BenefitWriteDto>();
+        listBenefits.add(new BenefitWriteDto().setName("Apple Friday"));
+        listBenefits.add(new BenefitWriteDto().setName("Orange Monday"));
+
+        var projectDataToUpgrade = new ProjectWriteDto()
+                .setBenefits(listBenefitsToUpdate);
+
+        // Update benefits in project
+
+        var actual = updatePatch(location, ProjectReadDto.class, projectDataToUpgrade);
+
+        // Excepted data
+
+        var listBenefitsToExcepted = new ArrayList<BenefitReadDto>();
+        listBenefitsToExcepted.add(new BenefitReadDto()
+                .setId(actual.getBenefits().get(0).getId())
+                .setName("Apple Friday"));
+        listBenefitsToExcepted.add(new BenefitReadDto()
+                .setId(actual.getBenefits().get(1).getId())
+                .setName("Orange Monday"));
+
+        var excepted = new ProjectReadDto()
+                .setId(actual.getId())
+                .setName(actual.getName())
+                .setDescription(actual.getDescription())
+                .setSkills(actual.getSkills())
+                .setBenefits(listBenefitsToExcepted)
+                .setCompany(actual.getCompany());
+
+        Assertions.assertThat(actual).isEqualTo(excepted);
+    }
+
+    @Test
+    void shouldThatCreateAndUpdateSkillsNewProjectCorrect() {
+
+        // Create a company to assign the project
+
+        var company = create(companyUri, CompanyReadDto.class, new CompanyWriteDto()
+                .setName("Company")
+                .setProjects(new ArrayList<>()));
+
+        // Date for create project
+
+        var listSkills = new ArrayList<SkillWriteDto>();
+        listSkills.add(new SkillWriteDto().setName("Java"));
+        listSkills.add(new SkillWriteDto().setName("GIT"));
+
+        var listBenefits = new ArrayList<BenefitWriteDto>();
+        listBenefits.add(new BenefitWriteDto().setName("Coffee"));
+        listBenefits.add(new BenefitWriteDto().setName("MultiSport Card"));
+
+        var projectDate = new ProjectWriteDto()
+                .setName("ProjectOne")
+                .setDescription("Sth")
+                .setSkills(listSkills)
+                .setBenefits(listBenefits)
+                .setCompany(new CompanyReadToProjectDto()
+                        .setId(company.getId())
+                        .setName("Company"));
+
+        // Create project
+
+        var project = create(projectUri, ProjectReadDto.class, projectDate);
+
+        // Build project location
+
+        var location = projectUri + "/" + project.getId();
+
+        // Date for update project
+
+        var listSkillsToUpdate = new ArrayList<SkillWriteDto>();
+        listSkillsToUpdate.add(new SkillWriteDto().setName("SQL"));
+        listSkillsToUpdate.add(new SkillWriteDto().setName("Python"));
+
+        var projectDataToUpgrade = new ProjectWriteDto()
+                .setSkills(listSkillsToUpdate);
+
+        // Update skills in project
+
+        var actual = updatePatch(location, ProjectReadDto.class, projectDataToUpgrade);
+
+        // Excepted data
+
+        var listSkillsToExcepted = new ArrayList<SkillReadDto>();
+        listSkillsToExcepted.add(new SkillReadDto()
+                .setId(actual.getSkills().get(0).getId())
+                .setName("Apple Friday"));
+        listSkillsToExcepted.add(new SkillReadDto()
+                .setId(actual.getSkills().get(1).getId())
+                .setName("Orange Monday"));
+
+        var excepted = new ProjectReadDto()
+                .setId(actual.getId())
+                .setName(actual.getName())
+                .setDescription(actual.getDescription())
+                .setSkills(listSkillsToExcepted)
+                .setBenefits(actual.getBenefits())
+                .setCompany(actual.getCompany());
+
+        Assertions.assertThat(actual).isEqualTo(excepted);
+    }
 }

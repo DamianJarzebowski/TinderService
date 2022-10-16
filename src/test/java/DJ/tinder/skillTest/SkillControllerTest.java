@@ -1,8 +1,6 @@
 package DJ.tinder.skillTest;
 
-import DJ.tinder.readService.model.achievement.dto.AchievementReadDto;
 import DJ.tinder.readService.model.skill.dto.SkillReadDto;
-import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +52,7 @@ public class SkillControllerTest {
 
         var locationCreatedEvent = baseUri + "/" + skill.getId();
 
-        var actual = update(locationCreatedEvent, SkillReadDto.class, new SkillWriteDto()
+        var actual = updatePut(locationCreatedEvent, SkillReadDto.class, new SkillWriteDto()
                 .setName("NewTestName"));
 
         var excepted = new SkillReadDto()

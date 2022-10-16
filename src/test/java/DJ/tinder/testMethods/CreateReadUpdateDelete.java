@@ -27,13 +27,26 @@ public class CreateReadUpdateDelete {
                 .as(clazz);
     }
 
-    public static <T> T update(String uri, Class<T> clazz, Object objectToUpdate) {
+    public static <T> T updatePut(String uri, Class<T> clazz, Object objectToUpdate) {
         return RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .body(objectToUpdate)
                 .when()
                 .put(uri)
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .as(clazz);
+    }
+
+    public static <T> T updatePatch(String uri, Class<T> clazz, Object objectToUpdate) {
+        return RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .body(objectToUpdate)
+                .when()
+                .patch(uri)
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract()

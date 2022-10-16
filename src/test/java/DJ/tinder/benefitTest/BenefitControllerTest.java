@@ -1,7 +1,6 @@
 package DJ.tinder.benefitTest;
 
 import DJ.tinder.readService.model.benefit.dto.BenefitReadDto;
-import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
 import DJ.tinder.writeService.model.benefit.dto.BenefitWriteDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +52,7 @@ public class BenefitControllerTest {
 
         var locationCreatedEvent = baseUri + "/" + benefit.getId();
 
-        var actual = update(locationCreatedEvent, BenefitReadDto.class, new BenefitWriteDto()
+        var actual = updatePut(locationCreatedEvent, BenefitReadDto.class, new BenefitWriteDto()
                 .setName("NewTestName"));;
 
         var excepted = new BenefitReadDto()
