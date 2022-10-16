@@ -18,6 +18,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
 import static DJ.tinder.testMethods.CreateReadUpdateDelete.*;
 
@@ -211,12 +212,9 @@ public class ProjectControllerTest {
         listBenefits.add(new BenefitWriteDto().setName("Apple Friday"));
         listBenefits.add(new BenefitWriteDto().setName("Orange Monday"));
 
-        var projectDataToUpgrade = new ProjectWriteDto()
-                .setBenefits(listBenefitsToUpdate);
-
         // Update benefits in project
 
-        var actual = updatePatch(location, ProjectReadDto.class, projectDataToUpgrade);
+        var actual = updatePatch(location, ProjectReadDto.class, listBenefitsToUpdate);
 
         // Excepted data
 
@@ -281,12 +279,9 @@ public class ProjectControllerTest {
         listSkillsToUpdate.add(new SkillWriteDto().setName("SQL"));
         listSkillsToUpdate.add(new SkillWriteDto().setName("Python"));
 
-        var projectDataToUpgrade = new ProjectWriteDto()
-                .setSkills(listSkillsToUpdate);
-
         // Update skills in project
 
-        var actual = updatePatch(location, ProjectReadDto.class, projectDataToUpgrade);
+        var actual = updatePatch(location, ProjectReadDto.class, listSkillsToUpdate);
 
         // Excepted data
 
