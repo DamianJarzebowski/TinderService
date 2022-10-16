@@ -102,12 +102,12 @@ public class DeveloperControllerTest {
                 .setLastName("TestDevLastName")
                 .setDescription("Sth")
                 .setProfession("TestProfession")
-                .setAchievements(listDeveloperAchievements)
-                .setSkills(listDeveloperSkills);
+                .setSkills(listDeveloperSkills)
+                .setAchievements(listDeveloperAchievements);
 
-        var actual = create(baseUri, DeveloperReadDto.class, dataToCreateDeveloper);
+        var developer = create(baseUri, DeveloperReadDto.class, dataToCreateDeveloper);
 
-        var locationDeveloper = baseUri + "/" + actual.getId();
+        var locationDeveloper = baseUri + "/" + developer.getId();
 
         var dataToUpdateDeveloper = new DeveloperWriteDto()
                 .setFirstName("UpdateFirstName")
@@ -115,16 +115,16 @@ public class DeveloperControllerTest {
                 .setDescription("UpdateSth")
                 .setProfession("UpdateProfession");
 
-        var updatedDeveloper = updatePatch(locationDeveloper, DeveloperReadDto.class, dataToUpdateDeveloper);
+        var actual = updatePatch(locationDeveloper, DeveloperReadDto.class, dataToUpdateDeveloper);
 
         var excepted = new DeveloperReadDto()
-                .setId(actual.getId())
+                .setId(developer.getId())
                 .setFirstName("UpdateFirstName")
                 .setLastName("UpdateLastName")
                 .setDescription("UpdateSth")
                 .setProfession("UpdateProfession")
-                .setAchievements(actual.getAchievements())
-                .setSkills(actual.getSkills());
+                .setAchievements(developer.getAchievements())
+                .setSkills(developer.getSkills());
 
         Assertions.assertThat(actual).isEqualTo(excepted);
     }

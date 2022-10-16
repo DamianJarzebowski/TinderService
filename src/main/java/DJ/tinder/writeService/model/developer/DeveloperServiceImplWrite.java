@@ -28,30 +28,6 @@ public class DeveloperServiceImplWrite implements DeveloperService{
     }
 
     @Override
-    public Developer findById(Long id) {
-        log.info(String.format("Downloading developer by id: %d", id));
-        return developerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(ErrorMessage.NOT_FOUND));
-    }
-
-    @Override
-    public Developer findRandom(Long projectId) {
-        log.info(String.format("Downloading random developer by projectId: %d", projectId));
-        List<Developer> developers = developerRepository.getRandomDevelopers(projectId);
-        if(developers.isEmpty()) {
-            throw new NotFoundException(ErrorMessage.NOT_FOUND);
-        } else {
-            return developers.get(getRandomId(developers.size() - 1));
-        }
-    }
-
-    @Override
-    public List<Developer> findAll() {
-        log.info("Downloading all developers");
-        return developerRepository.findAll();
-    }
-
-    @Override
     public Developer updatePersonalInformation(Long id, Developer developer) {
         log.info(String.format("Updating developer by id: %d", id));
         return developerRepository.findById(id)
@@ -90,10 +66,6 @@ public class DeveloperServiceImplWrite implements DeveloperService{
                     log.error(String.format("Developer id: %d does not exists", id));
                     return new NotFoundException(ErrorMessage.NOT_FOUND);
                 });
-    }
-
-    private int getRandomId(int max) {
-        return new Random().nextInt(max);
     }
 
 }

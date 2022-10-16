@@ -10,12 +10,6 @@ public interface DeveloperService {
 
     Developer create(Developer developerDTO);
 
-    Developer findById(Long id);
-
-    Developer findRandom(Long projectId);
-
-    List<Developer> findAll();
-
     Developer updatePersonalInformation(Long id, Developer developer);
 
     Developer updateAchievements(Long id, List<Achievement> achievements);
