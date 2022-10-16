@@ -77,6 +77,8 @@ public class ProjectControllerTest {
 
         var location = projectUri + "/" + project.getId();
 
+        // Read created project
+
         var actual = read(location, ProjectReadDto.class);
 
         // Data for excepted
