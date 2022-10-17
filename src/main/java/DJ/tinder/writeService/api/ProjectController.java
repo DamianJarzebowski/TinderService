@@ -8,6 +8,7 @@ import DJ.tinder.writeService.model.project.ProjectService;
 
 import DJ.tinder.writeService.model.project.dto.ProjectWriteDto;
 import DJ.tinder.writeService.model.project.dto.ProjectWriteMapper;
+import DJ.tinder.writeService.model.skill.SkillService;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class ProjectController {
     private final ProjectWriteMapper projectWriteMapper;
     private final SkillWriteMapper skillWriteMapper;
     private final BenefitWriteMapper benefitWriteMapper;
+    private final SkillService skillService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -36,19 +38,20 @@ public class ProjectController {
                         projectWriteMapper.toEntity(projectWriteDto)));
     }
 
-    @PatchMapping("/{id}/general")
+    @PutMapping("/{id}/general")
     public ProjectReadDto updateBasicInformation(@PathVariable Long id, @RequestBody ProjectWriteDto dto) {
+
         return projectReadMapper.toDto(
                 projectService.updateBasicInformation(id, projectWriteMapper.toEntity(dto)));
     }
 
-    @PatchMapping("/{id}/skills")
+    @PutMapping("/{id}/skills")
     public ProjectReadDto updateSkills(@PathVariable Long id, @RequestBody List<SkillWriteDto> dtoList) {
         return projectReadMapper.toDto(
                 projectService.updateSkills(id, skillWriteMapper.toEntity(dtoList)));
     }
 
-    @PatchMapping("/{id}/benefits")
+    @PutMapping("/{id}/benefits")
     public ProjectReadDto updateBenefits(@PathVariable Long id, @RequestBody List<BenefitWriteDto> dtoList) {
         return projectReadMapper.toDto(
                 projectService.updateBenefits(id, benefitWriteMapper.toEntity(dtoList)));

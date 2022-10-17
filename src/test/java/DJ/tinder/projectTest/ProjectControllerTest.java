@@ -145,17 +145,20 @@ public class ProjectControllerTest {
 
         // Build project location
 
-        var location = projectUri + "/" + project.getId();
+        var location = projectUri + "/" + project.getId() + "/general";
 
         // Date for update project
 
         var projectDataToUpgrade = new ProjectWriteDto()
                 .setName("ProjectOneUpgrade")
-                .setDescription("SthUpgrade");
+                .setDescription("SthUpgrade")
+                .setSkills(projectDate.getSkills())
+                .setBenefits(projectDate.getBenefits())
+                .setCompany(projectDate.getCompany());
 
         // Update basic information in project
 
-        var actual = updatePatch(location, ProjectReadDto.class, projectDataToUpgrade);
+        var actual = updatePut(location, ProjectReadDto.class, projectDataToUpgrade);
 
         // Excepted data
 
@@ -204,17 +207,17 @@ public class ProjectControllerTest {
 
         // Build project location
 
-        var location = projectUri + "/" + project.getId();
+        var location = projectUri + "/" + project.getId() + "/benefits";
 
         // Date for update project
 
         var listBenefitsToUpdate = new ArrayList<BenefitWriteDto>();
-        listBenefits.add(new BenefitWriteDto().setName("Apple Friday"));
-        listBenefits.add(new BenefitWriteDto().setName("Orange Monday"));
+        listBenefitsToUpdate.add(new BenefitWriteDto().setName("Apple Friday"));
+        listBenefitsToUpdate.add(new BenefitWriteDto().setName("Orange Monday"));
 
         // Update benefits in project
 
-        var actual = updatePatch(location, ProjectReadDto.class, listBenefitsToUpdate);
+        var actual = updatePut(location, ProjectReadDto.class, listBenefitsToUpdate);
 
         // Excepted data
 
@@ -271,7 +274,7 @@ public class ProjectControllerTest {
 
         // Build project location
 
-        var location = projectUri + "/" + project.getId();
+        var location = projectUri + "/" + project.getId() + "/skills";
 
         // Date for update project
 
@@ -281,7 +284,7 @@ public class ProjectControllerTest {
 
         // Update skills in project
 
-        var actual = updatePatch(location, ProjectReadDto.class, listSkillsToUpdate);
+        var actual = updatePut(location, ProjectReadDto.class, listSkillsToUpdate);
 
         // Excepted data
 

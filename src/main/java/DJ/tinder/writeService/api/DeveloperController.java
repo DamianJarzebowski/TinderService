@@ -35,19 +35,19 @@ public class DeveloperController {
                         developerWriteMapper.toEntity(dto)));
     }
 
-    @PatchMapping("/{id}/general")
+    @PutMapping("/{id}/general")
     public DeveloperReadDto updatePersonalInformation(@PathVariable Long id, @RequestBody DeveloperWriteDto dto) {
         return developerReadMapper.toDto(
                 developerService.updatePersonalInformation(id, developerWriteMapper.toEntity(dto)));
     }
 
-    @PatchMapping("/{id}/achievements")
+    @PutMapping("/{id}/achievements")
     public DeveloperReadDto updateAchievements(@PathVariable Long id, @RequestBody List<AchievementWriteDto> dtoList) {
         return developerReadMapper.toDto(
                 developerService.updateAchievements(id, achievementWriteMapper.toEntity(dtoList)));
     }
 
-    @PatchMapping("/{id}/skills")
+    @PutMapping("/{id}/skills")
     public DeveloperReadDto updateSkills(@PathVariable Long id, @RequestBody List<SkillWriteDto> dtoList) {
         return developerReadMapper.toDto(
                 developerService.updateSkills(id, skillWriteMapper.toEntity(dtoList)));

@@ -107,15 +107,17 @@ public class DeveloperControllerTest {
 
         var developer = create(baseUri, DeveloperReadDto.class, dataToCreateDeveloper);
 
-        var locationDeveloper = baseUri + "/" + developer.getId();
+        var locationDeveloper = baseUri + "/" + developer.getId() + "/general";
 
         var dataToUpdateDeveloper = new DeveloperWriteDto()
                 .setFirstName("UpdateFirstName")
                 .setLastName("UpdateLastName")
                 .setDescription("UpdateSth")
-                .setProfession("UpdateProfession");
+                .setProfession("UpdateProfession")
+                .setAchievements(listDeveloperAchievements)
+                .setSkills(listDeveloperSkills);
 
-        var actual = updatePatch(locationDeveloper, DeveloperReadDto.class, dataToUpdateDeveloper);
+        var actual = updatePut(locationDeveloper, DeveloperReadDto.class, dataToUpdateDeveloper);
 
         var excepted = new DeveloperReadDto()
                 .setId(developer.getId())

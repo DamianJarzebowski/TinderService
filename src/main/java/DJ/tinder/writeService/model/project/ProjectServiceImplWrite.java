@@ -6,10 +6,13 @@ import DJ.tinder.readService.model.benefit.Benefit;
 import DJ.tinder.readService.model.project.Project;
 import DJ.tinder.readService.model.project.ProjectRepository;
 import DJ.tinder.readService.model.skill.Skill;
+import DJ.tinder.writeService.model.skill.SkillService;
+import DJ.tinder.writeService.model.skill.dto.SkillWriteMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
