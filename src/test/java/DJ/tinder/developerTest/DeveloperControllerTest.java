@@ -3,7 +3,6 @@ package DJ.tinder.developerTest;
 import DJ.tinder.readService.model.achievement.dto.AchievementReadDto;
 import DJ.tinder.readService.model.developer.dto.DeveloperReadDto;
 import DJ.tinder.readService.model.skill.dto.SkillReadDto;
-import DJ.tinder.testMethods.CreateReadUpdateDelete;
 import DJ.tinder.writeService.model.achievement.dto.AchievementWriteDto;
 import DJ.tinder.writeService.model.developer.dto.DeveloperWriteDto;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
@@ -134,10 +133,100 @@ public class DeveloperControllerTest {
     @Test
     void shouldThatCreateAndUpdateAchievementsNewDeveloperCorrect() {
 
+        var listDeveloperSkills = new ArrayList<SkillWriteDto>();
+        listDeveloperSkills.add(new SkillWriteDto().setName("Java"));
+        listDeveloperSkills.add(new SkillWriteDto().setName("GIT"));
+
+        var listDeveloperAchievements = new ArrayList<AchievementWriteDto>();
+        listDeveloperAchievements.add(new AchievementWriteDto().setName("Achievement1"));
+        listDeveloperAchievements.add(new AchievementWriteDto().setName("Achievement2"));
+
+        var dataToCreateDeveloper = new DeveloperWriteDto()
+                .setFirstName("TestDevFirstName")
+                .setLastName("TestDevLastName")
+                .setDescription("Sth")
+                .setProfession("TestProfession")
+                .setSkills(listDeveloperSkills)
+                .setAchievements(listDeveloperAchievements);
+
+        var developer = create(baseUri, DeveloperReadDto.class, dataToCreateDeveloper);
+
+        var locationDeveloper = baseUri + "/" + developer.getId() + "/achievements";
+
+        var listAchievementsToUpdate = new ArrayList<AchievementWriteDto>();
+        listAchievementsToUpdate.add(new AchievementWriteDto().setName("Achievement1_Updated"));
+        listAchievementsToUpdate.add(new AchievementWriteDto().setName("Achievement2_Updated"));
+
+
+        var actual = updatePut(locationDeveloper, DeveloperReadDto.class, listAchievementsToUpdate);
+
+        var expectedListDeveloperAchievement = new ArrayList<AchievementReadDto>();
+        expectedListDeveloperAchievement.add(new AchievementReadDto()
+                .setId(actual.getSkills().get(0).getId())
+                .setName("Achievement1_Updated"));
+        expectedListDeveloperAchievement.add(new AchievementReadDto()
+                .setId(actual.getSkills().get(1).getId())
+                .setName("Achievement2_Updated"));
+
+        var excepted = new DeveloperReadDto()
+                .setId(developer.getId())
+                .setFirstName(developer.getFirstName())
+                .setLastName(developer.getLastName())
+                .setDescription(developer.getDescription())
+                .setProfession(developer.getProfession())
+                .setAchievements(expectedListDeveloperAchievement)
+                .setSkills(developer.getSkills());
+
+        Assertions.assertThat(actual).isEqualTo(excepted);
+
     }
 
     @Test
     void shouldThatCreateAndUpdateSkillsNewDeveloperCorrect() {
 
+        var listDeveloperSkills = new ArrayList<SkillWriteDto>();
+        listDeveloperSkills.add(new SkillWriteDto().setName("Java"));
+        listDeveloperSkills.add(new SkillWriteDto().setName("GIT"));
+
+        var listDeveloperAchievements = new ArrayList<AchievementWriteDto>();
+        listDeveloperAchievements.add(new AchievementWriteDto().setName("Achievement1"));
+        listDeveloperAchievements.add(new AchievementWriteDto().setName("Achievement2"));
+
+        var dataToCreateDeveloper = new DeveloperWriteDto()
+                .setFirstName("TestDevFirstName")
+                .setLastName("TestDevLastName")
+                .setDescription("Sth")
+                .setProfession("TestProfession")
+                .setSkills(listDeveloperSkills)
+                .setAchievements(listDeveloperAchievements);
+
+        var developer = create(baseUri, DeveloperReadDto.class, dataToCreateDeveloper);
+
+        var locationDeveloper = baseUri + "/" + developer.getId() + "/skills";
+
+        var listSkillsToUpdate = new ArrayList<SkillWriteDto>();
+        listSkillsToUpdate.add(new SkillWriteDto().setName("Update Skill 1"));
+        listSkillsToUpdate.add(new SkillWriteDto().setName("Update Skill 2"));
+
+        var actual = updatePut(locationDeveloper, DeveloperReadDto.class, listSkillsToUpdate);
+
+        var expectedListDeveloperSkills = new ArrayList<SkillReadDto>();
+        expectedListDeveloperSkills.add(new SkillReadDto()
+                .setId(actual.getSkills().get(0).getId())
+                .setName("Update Skill 1"));
+        expectedListDeveloperSkills.add(new SkillReadDto()
+                .setId(actual.getSkills().get(1).getId())
+                .setName("Update Skill 2"));
+
+        var excepted = new DeveloperReadDto()
+                .setId(developer.getId())
+                .setFirstName(developer.getFirstName())
+                .setLastName(developer.getLastName())
+                .setDescription(developer.getDescription())
+                .setProfession(developer.getProfession())
+                .setAchievements(developer.getAchievements())
+                .setSkills(expectedListDeveloperSkills);
+
+        Assertions.assertThat(actual).isEqualTo(excepted);
     }
 }

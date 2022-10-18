@@ -18,7 +18,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
 
 import static DJ.tinder.testMethods.CreateReadUpdateDelete.*;
 
