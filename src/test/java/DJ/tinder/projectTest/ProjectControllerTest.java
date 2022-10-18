@@ -291,10 +291,10 @@ public class ProjectControllerTest {
         var listSkillsToExcepted = new ArrayList<SkillReadDto>();
         listSkillsToExcepted.add(new SkillReadDto()
                 .setId(actual.getSkills().get(0).getId())
-                .setName("Apple Friday"));
+                .setName("SQL"));
         listSkillsToExcepted.add(new SkillReadDto()
                 .setId(actual.getSkills().get(1).getId())
-                .setName("Orange Monday"));
+                .setName("Python"));
 
         var excepted = new ProjectReadDto()
                 .setId(actual.getId())

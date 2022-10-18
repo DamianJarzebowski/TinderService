@@ -6,7 +6,10 @@ import DJ.tinder.readService.model.benefit.Benefit;
 import DJ.tinder.readService.model.project.Project;
 import DJ.tinder.readService.model.project.ProjectRepository;
 import DJ.tinder.readService.model.skill.Skill;
+import DJ.tinder.writeService.model.benefit.BenefitService;
+import DJ.tinder.writeService.model.benefit.dto.BenefitWriteDto;
 import DJ.tinder.writeService.model.skill.SkillService;
+import DJ.tinder.writeService.model.skill.dto.SkillWriteDto;
 import DJ.tinder.writeService.model.skill.dto.SkillWriteMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,8 @@ import java.util.Random;
 public class ProjectServiceImplWrite implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final BenefitService benefitService;
+    private final SkillService skillService;
 
     @Override
     public Project create(Project project) {
@@ -39,7 +44,12 @@ public class ProjectServiceImplWrite implements ProjectService {
     }
 
     @Override
-    public Project updateSkills(Long id, List<Skill> skills) {
+    public Project updateSkills(Long id, List<SkillWriteDto> dtoList) {
+        List<Skill> skills = new ArrayList<>();
+        for (SkillWriteDto dto : dtoList) {
+            Skill skill = skillService.create(dto);
+            skills.add(skill);
+        }
         return projectRepository.findById(id)
                 .map(projectFromDb -> {
                     projectFromDb.setSkills(skills);
@@ -48,7 +58,12 @@ public class ProjectServiceImplWrite implements ProjectService {
     }
 
     @Override
-    public Project updateBenefits(Long id, List<Benefit> benefits) {
+    public Project updateBenefits(Long id, List<BenefitWriteDto> dtoList) {
+        List<Benefit> benefits = new ArrayList<>();
+        for (BenefitWriteDto dto : dtoList) {
+            Benefit benefit = benefitService.create(dto);
+            benefits.add(benefit);
+        }
         return projectRepository.findById(id)
                 .map(projectFromDb -> {
                     projectFromDb.setBenefits(benefits);

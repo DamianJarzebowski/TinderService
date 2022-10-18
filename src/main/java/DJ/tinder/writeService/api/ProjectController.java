@@ -2,6 +2,7 @@ package DJ.tinder.writeService.api;
 
 import DJ.tinder.readService.model.project.dto.ProjectReadDto;
 import DJ.tinder.readService.model.project.mapper.ProjectReadMapper;
+import DJ.tinder.writeService.model.benefit.BenefitService;
 import DJ.tinder.writeService.model.benefit.dto.BenefitWriteDto;
 import DJ.tinder.writeService.model.benefit.dto.BenefitWriteMapper;
 import DJ.tinder.writeService.model.project.ProjectService;
@@ -28,7 +29,6 @@ public class ProjectController {
     private final ProjectWriteMapper projectWriteMapper;
     private final SkillWriteMapper skillWriteMapper;
     private final BenefitWriteMapper benefitWriteMapper;
-    private final SkillService skillService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
@@ -48,13 +48,13 @@ public class ProjectController {
     @PutMapping("/{id}/skills")
     public ProjectReadDto updateSkills(@PathVariable Long id, @RequestBody List<SkillWriteDto> dtoList) {
         return projectReadMapper.toDto(
-                projectService.updateSkills(id, skillWriteMapper.toEntity(dtoList)));
+                projectService.updateSkills(id, dtoList));
     }
 
     @PutMapping("/{id}/benefits")
     public ProjectReadDto updateBenefits(@PathVariable Long id, @RequestBody List<BenefitWriteDto> dtoList) {
         return projectReadMapper.toDto(
-                projectService.updateBenefits(id, benefitWriteMapper.toEntity(dtoList)));
+                projectService.updateBenefits(id, dtoList));
     }
 
 }
