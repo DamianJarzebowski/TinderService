@@ -162,10 +162,10 @@ public class DeveloperControllerTest {
 
         var expectedListDeveloperAchievement = new ArrayList<AchievementReadDto>();
         expectedListDeveloperAchievement.add(new AchievementReadDto()
-                .setId(actual.getSkills().get(0).getId())
+                .setId(actual.getAchievements().get(0).getId())
                 .setName("Achievement1_Updated"));
         expectedListDeveloperAchievement.add(new AchievementReadDto()
-                .setId(actual.getSkills().get(1).getId())
+                .setId(actual.getAchievements().get(1).getId())
                 .setName("Achievement2_Updated"));
 
         var excepted = new DeveloperReadDto()
